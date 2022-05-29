@@ -62,7 +62,7 @@ void LSH(int b, int r) {
     }
 
     vector<vector<float>> sim_matrix = read_matrix();
-    for (int t = 0; t < 100; t++) {
+    for (int t = 0; t < 1000; t++) {
         if (t % 10 == 0) {
             cout << "progress: " << t << "/1000" << endl;
         }
