@@ -126,9 +126,10 @@ void LSH(int b, int r) {
 
 
 
-int main() {
-    int b = 5;
-    int r = 6;
+int main(int argc,char **argv) {
+
+    int b = atoi(argv[1]);
+    int r = atoi(argv[2]);
 
     LSH(b, r);
 
