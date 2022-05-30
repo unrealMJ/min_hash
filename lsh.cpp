@@ -112,14 +112,19 @@ void LSH(int b, int r) {
         }
     }
 
+    ofstream result_csv;
+    result_csv.open("F:\\min_hash-main\\min_hash-main\\result.csv", ios::out);
     for (int i = 0; i < DOC_NUM; i++) {
         for (int j = i + 1; j < DOC_NUM; j++) {
-            cout << "(" << i << "," << j << ") ";
-            cout << "probablity = " << result[i][j] / 10 << "% ";
-            cout << "similarity = " << sim_matrix[i][j] * 100 << "% ";
-            cout << "prediction = " << (1 - pow(1 - pow(sim_matrix[i][j], r), b)) * 100 << "%" << endl;
+            // cout << "(" << i << "," << j << ") ";
+            // cout << "probablity = " << result[i][j] / 10 << "% ";
+            // cout << "similarity = " << sim_matrix[i][j] * 100 << "% ";
+            // cout << "prediction = " << (1 - pow(1 - pow(sim_matrix[i][j], r), b)) * 100 << "%" << endl;
+            result_csv << sim_matrix[i][j] << ",";
+            result_csv << result[i][j] / 1000 << endl;
         }
     }
+    result_csv.close();
     
 }
 
