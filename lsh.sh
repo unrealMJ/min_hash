@@ -1,4 +1,4 @@
-g++ -o ./lsh ./lsh.cpp
+g++ -o ./lsh.exe ./lsh.cpp
 
 ./lsh 2 15 > ./lsh_result/2_15.txt
 ./lsh 3 10 > ./lsh_result/3_10.txt
