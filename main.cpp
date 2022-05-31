@@ -12,7 +12,7 @@
 
 #define buffer_size 8
 #define doc_size 500
-// #define doc_num 1000
+#define all_doc_num 1000
 #define signature_dim 30
 #define MAX_INT 4294967295  // 
 
@@ -45,10 +45,27 @@ void getFiles(string path, vector<string> &files)
     closedir(dir);
 }
 
+// 返回文件名中出现的第一个整数
+int get_doc_num(string file_path)
+{
+	int num = 0;
+	bool added_num = false;
+	for(int i=0; i<file_path.length(); i++)
+	{
+		while(isdigit(file_path[i]))
+		{
+			num = num*10 + file_path[i++]-'0';
+			added_num = true;
+		}
+		if(added_num)	return num;
+	}
+	return num;
+}
+
 //读取指定目录下的文档，逐个文档生成 shingle 集合并映射为整数集合
 vector<set<unsigned int>> shingling(vector<string> file_names)
 {
-	vector<set<unsigned int>> shingle_sets;
+	vector<set<unsigned int>> shingle_sets(all_doc_num);
 	for (int i = 0; i < file_names.size();++i)
 	{
 		ifstream istream(file_names[i]);
@@ -59,7 +76,7 @@ vector<set<unsigned int>> shingling(vector<string> file_names)
 		if (!istream.is_open())
 		{ cout << "Could not open file!" << endl; exit(1);}
 		
-		for(int j=0; j < doc_size / (buffer_size); j++)
+		for(int j=0; j < (doc_size - buffer_size + 1); j++)
 		{
 			istream.read(buffer, sizeof(char)*buffer_size);
 			istream.seekg(sizeof(char)*(1-buffer_size), ios::cur);
@@ -68,9 +85,9 @@ vector<set<unsigned int>> shingling(vector<string> file_names)
 
 			// cout << buffer << ' ';
 		}
-		shingle_sets.push_back(shingle);
+		shingle_sets[get_doc_num(file_names[i])-1] = shingle;
 		istream.close();
-		// cout << endl << endl;
+		cout << file_names[i] << " shingle set size: " << shingle.size() << endl;
 	}
 	return shingle_sets;
 }
@@ -133,7 +150,7 @@ void gen_signatures(vector<set<unsigned int>> shingles)
 
 		// (option )save signature to file
 		char sig_file[20];
-		sprintf(sig_file, "signatue_mat/%d", i);
+		sprintf(sig_file, "signature_mat/%d", i);
 		FILE* fp = fopen(sig_file, "w");
 		if(!fp){
 			cout << "fail to open file " << endl;
@@ -163,6 +180,7 @@ float cal_jaccard(set<unsigned int> shingle1, set<unsigned int> shingle2)
 void save_sim_matrix(vector<set<unsigned int>> shingles)
 {
 	ofstream csvFile("jaccard_sim.csv", ios::out|ios::trunc);
+	float sim;
 	if (!csvFile.is_open())
 		{ cout << "Could not open csv file!" << endl; exit(1);}
 
@@ -170,7 +188,9 @@ void save_sim_matrix(vector<set<unsigned int>> shingles)
 	{
 		for(int j=0; j<shingles.size(); j++)
 		{
-			csvFile << cal_jaccard(shingles[i], shingles[j]) << ",";
+			sim = cal_jaccard(shingles[i], shingles[j]);
+			csvFile << sim << ",";
+			cout << "(" << i << "," << j << ") similary: " << sim << endl;
 		}
 		csvFile << endl;
 	}
