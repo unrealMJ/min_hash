@@ -23,5 +23,5 @@ sh lsh.sh
 
 stage 4 绘制结果
 ```
-python xxx.py
+python draw.py
 ```
