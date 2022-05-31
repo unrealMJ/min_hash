@@ -229,8 +229,8 @@ int main(int argc, char** argv)
 	shingles = shingling(file_names);
 
 	// 计算jaccard similarity matrix
-	cout << "calculating jaccard similarity matrix ..." << endl;
-	save_sim_matrix(shingles);
+	// cout << "calculating jaccard similarity matrix ..." << endl;
+	// save_sim_matrix(shingles);
 	// 采用min hash生成签名矩阵
 	cout << "\n min hash" << endl;
 	gen_signatures(shingles);

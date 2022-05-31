@@ -68,7 +68,7 @@ void LSH(int b, int r) {
         }
 
         char sig_file[20];
-		sprintf(sig_file, "signatue_mat/%d", t);
+		sprintf(sig_file, "signature_mat/%d", t);
         FILE* fp = fopen(sig_file, "r");
         fread(signature, sizeof(unsigned int), SIGNATURE_DIM * DOC_NUM, fp);
 
