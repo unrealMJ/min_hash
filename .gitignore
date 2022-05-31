@@ -4,3 +4,5 @@ signatue_mat/*
 jaccard_sim.csv
 
 .vscode/*
+*.exe
+out.txt
