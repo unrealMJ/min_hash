@@ -43,3 +43,4 @@ if __name__ == '__main__':
         b = int(b_r[0])
         r = int(b_r[1].split(".")[0])
         draw(path + '/' + file, b, r)
+
