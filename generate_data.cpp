@@ -31,10 +31,10 @@ void generateA1(int N){
         num = uniform(0, 53, &seed);//生成在开区间（0,2）上均匀分布的随机数, 取整后得到均匀分布的0/1
         char c = metachar[num];
 
-        cout<<c;
+        //cout<<c;
         fprintf(fp,"%c",c);
     }
-    cout<<endl << "A1"<< "写入成功"<<endl;
+    //cout<<endl << "A1"<< "写入成功"<<endl;
 
     fclose(fp);
 }
@@ -79,24 +79,25 @@ void genetate_others(int num_file, int N){
 void test_jaccard(){
     FILE *fpread, *fpread2;
     char metachar[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"; 
-    fpread = fopen("data_1/A1.txt","r");
-    fpread2 = fopen("data_1/A2.txt","r");
+    fpread = fopen("data/A1.txt","r");
+    fpread2 = fopen("data/A2.txt","r");
     int N = 500;
     char Apre[N];
     char Anow[N];
     int jiao=0, bing = 0;
     for(int i = 0 ; i <N; i++){
-        Apre[i] = 'v';
         fscanf(fpread, "%c", &Apre[i]); 
         fscanf(fpread2, "%c", &Anow[i]); 
         if(Apre[i] == Anow[i]){
             jiao++;
         }else{
             bing++;
-            printf("index of different char : %d   %c \n", i , Apre[i]);
+            printf("\nindex of different char : %d   %c  %c\n", i , Apre[i],Anow[i]);
         }
         
     }
+    printf("不同的个数:%d\n",bing);
+
     bing = jiao + bing;
     printf("jaccard:%f\n",jiao/(bing*1.0));
 

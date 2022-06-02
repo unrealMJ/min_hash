@@ -1,10 +1,13 @@
 # 高级算法作业
 
 使用方法:
+执行环境：Linux
 
 stage 1 生成文档:
 ```
-pass
+mkdir data/
+g++ generate_data.cpp  generate_data
+./generate_data
 ```
 
 stage 2 计算jaccard相似度与签名矩阵
